@@ -1,0 +1,27 @@
+spring:
+  kafka:
+    bootstrap-servers: "localhost:9092"
+  cloud:
+    function:
+      definition: orderSellSupplier,orderBuySupplier
+    stream:
+      kafka:
+        bindings:
+          orderSellSupplier-out-0:
+            producer:
+              configuration:
+                key:
+                  serializer: org.apache.kafka.common.serialization.LongSerializer
+          orderBuySupplier-out-0:
+            producer:
+              configuration:
+                key:
+                  serializer: org.apache.kafka.common.serialization.LongSerializer
+      bindings:
+        orderBuySupplier-out-0:
+          destination: orders.buy
+        orderSellSupplier-out-0:
+          destination: orders.sell
+
+kafka:
+  topic: my-topic
